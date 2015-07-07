@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% block head %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Item Catalog">
+    <meta name="author" content="Davide Nastri">
+
+    <title>{% block title %}{% endblock %}</title>
+
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/shop-homepage.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    {% endblock %}
+</head>
+
+<body>
+
+{% block navbar %}
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+            <a class="navbar-brand" href="{{url_for('show_catalog')}}">Item Catalog</a>
+            <form action="#" class="pull-right">
+                <button class="btn btn-default navbar-btn btn-success">Login</button>
+            </form>
+    </div>
+</nav>
+{% endblock %}
+
+
+{% block content %}
+{% endblock %}
+
+
+{% block footer %}
+<div class="container">
+    <hr>
+    <footer>
+        <div class="row">
+            <div class="col-lg-12">
+                <p>&copy; <a href="https://www.linkedin.com/in/davidenastri">Davide Nastri</a> 2015</p>
+            </div>
+        </div>
+    </footer>
+</div>
+{% endblock %}
+
+<script src="/static/js/jquery.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/main.js"></script>
+
+</body>
+</html>

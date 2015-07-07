@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %}Edit {{item.name}}, {{category.name}}{% endblock %}
+
+{% block content %}
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+    <h3 class="pull-right">Edit {{item.name}}, {{category.name}}</h3>
+    </div>
+    <form action="{{url_for('edit_item', category_id = category.id, item_id = item.id)}}" method="POST">
+        <div class="form-group">
+            <label for="inputItemName">Name</label>
+            <input class="form-control" name="inputItemName" id="inputItemName" placeholder="{{item.name}}">
+        </div>
+        <div class="form-group">
+            <label for="inputItemDescription">Description</label>
+            <textarea class="form-control" name="inputItemDescription" id="inputItemDescription" placeholder="{{item.description}}"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="inputItemPrice">Price</label>
+            <input class="form-control" name="inputItemPrice" id="inputItemPrice" placeholder="{{item.price}}">
+        </div>
+
+        <div class="form-group">
+            <label for="inputItemName">Category</label>
+            <select class="form-control" name="inputItemCategory" id="inputItemCategory">
+                {% for element in categories %}
+                    {% if element.id == category.id %}
+                    <option value="{{element.id}}" selected>{{element.name}}</option>
+                    {% else %}
+                    <option value="{{element.id}}">{{element.name}}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+
+        <ul class="pull-right">
+            <button onClick="window.history.back();" class="btn btn-danger">Cancel</button>
+            <button type="submit" class="btn btn-success">Insert</button>
+        </ul>
+    </form>
+</div>
+<!-- /.container -->
+{% endblock %}
+

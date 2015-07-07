@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}Delete Category{% endblock %}
+
+{% block content %}
+<!-- Page Content -->
+
+<div class="container">
+    <div class="row">
+    <h3 class="pull-right">Delete Category</h3>
+    </div>
+    <form action="{{url_for('delete_category', category_id=category.id)}}" method="POST">
+        <div class="form-group">
+            <label>Name</label>
+            <p>{{category.name}}</p>
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <p>{{category.description}}</p>
+        </div>
+        <ul class="pull-right">
+            <button onClick="window.history.back();" class="btn btn-danger">Cancel</button>
+            <button type="submit" class="btn btn-success">Delete</button>
+        </ul>
+    </form>
+</div>
+<!-- /.container -->
+{% endblock %}
+
