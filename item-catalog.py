@@ -3,8 +3,14 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import desc
 from database_setup import Base, User, Category, Item
+from werkzeug import secure_filename
+import os
+
+UPLOAD_FOLDER = 'static/images/'
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 engine = create_engine('sqlite:///item-catalog.db')
 Base.metadata.bind = engine
@@ -12,6 +18,9 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 @app.route('/login')
 def login():
@@ -116,15 +125,24 @@ def new_item(category_id):
     categories = session.query(Category).order_by(Category.name).all()
     if request.method == 'POST':
         newItem = Item(
-            name=request.form['inputCategoryName'],
-            description=request.form['inputCategoryDescription'],
-            price=request.form['inputCategoryPrice'],
+            name=request.form['inputItemName'],
+            description=request.form['inputItemDescription'],
+            price=request.form['inputItemPrice'],
+            image="",
             category_id=category_id
         )
         session.add(newItem)
         session.commit()
-        return "ok"
-        return redirect(url_for('category_items', category_id=category.id))
+        file = request.files['inputItemImage']
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file_extension = os.path.splitext(filename)[1]
+            image_path = os.path.join(app.config['UPLOAD_FOLDER'], str(newItem.id)+file_extension)
+            file.save(image_path)
+            newItem.image="/"+image_path
+            session.add(newItem)
+            session.commit()
+        return redirect(url_for('category_items', category_id=category_id))
     else:
         return render_template('new_item.html', category=category, categories=categories)
 

@@ -1,4 +1,7 @@
+
 from sqlalchemy import Column, ForeignKey, Integer, String
+
+from sqlalchemy.dialects.sqlite import BLOB
 
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -49,6 +52,10 @@ class Category(Base):
         String(250), nullable=False
     )
 
+    image = Column(
+        String(250)
+    )
+
     user_id = Column(
         Integer, ForeignKey('user.id')
     )
@@ -78,6 +85,9 @@ class Item(Base):
     )
     description = Column(
         String(250), nullable=False
+    )
+    image = Column(
+        String(250)
     )
     price = Column(
         String(250), nullable=False

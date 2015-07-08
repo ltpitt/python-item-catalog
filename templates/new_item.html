@@ -6,27 +6,49 @@
 <!-- Page Content -->
 <div class="container">
     <div class="row">
-    <h3 class="pull-right">New Item in {{category.name}}</h3>
+        <h3 class="pull-right">New Item in {{category.name}}</h3>
     </div>
-    <form action="{{url_for('new_category')}}" method="POST">
+    <form action="{{url_for('new_item', category_id = category.id)}}" method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label for="inputItemName">Name</label>
             <input class="form-control" name="inputItemName" id="inputItemName" placeholder="Name" required>
         </div>
         <div class="form-group">
             <label for="inputItemDescription">Description</label>
-            <textarea class="form-control" name="inputItemDescription" id="inputItemDescription" placeholder="Description" required></textarea>
+            <textarea class="form-control" name="inputItemDescription" id="inputItemDescription"
+                      placeholder="Description" required></textarea>
         </div>
         <div class="form-group">
             <label for="inputItemPrice">Price</label>
             <input class="form-control" name="inputItemPrice" id="inputItemPrice" placeholder="Name" required>
         </div>
 
+        <div class="form-group">
+            <label for="inputItemImage">Image</label>
+            <br>
+            <span class="btn btn-default btn-file">
+                Browse
+                <input id="inputItemImage" name="inputItemImage" type="file">
+            </span>
+
+            <div class="cropper" style="max-width: 400px; max-height: 300px; margin: 0 auto;">
+                <img id="item-image" src="" alt="Picture" hidden>
+            </div>
+
+
+        </div>
+
+
         <ul class="pull-right">
             <button onClick="window.history.back();" class="btn btn-danger">Cancel</button>
             <button type="submit" class="btn btn-success">Insert</button>
         </ul>
+
+
     </form>
+    <button onClick="cropperCrop();" class="btn btn-warning">Crop</button>
+
+
 </div>
 <!-- /.container -->
 {% endblock %}
