@@ -180,15 +180,7 @@ def delete_item(category_id, item_id):
     categories = session.query(Category).order_by(Category.name).all()
     deletedItem = session.query(Item).filter_by(id=item_id).one()
     if request.method == 'POST':
-        if request.form['inputItemName']:
-            deletedItem.name = request.form['inputItemName']
-        if request.form['inputItemDescription']:
-            deletedItem.description = request.form['inputItemDescription']
-        if request.form['inputItemPrice']:
-            deletedItem.price = request.form['inputItemPrice']
-        if request.form['inputItemCategory']:
-            deletedItem.price = request.form['inputItemCategory']
-        session.add(deletedItem)
+        session.delete(deletedItem)
         session.commit()
         return redirect(url_for('show_catalog'))
     else:
