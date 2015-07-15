@@ -50,6 +50,7 @@ def new_category():
     Get: Show the form allowing an authenticated user to create a category
     Post: Allow an authenticated user to create a category
     """
+    categories = session.query(Category).order_by(Category.name).all()
     if request.method == 'POST':
         newCategory = Category(
             name=request.form['inputCategoryName'],
@@ -60,7 +61,7 @@ def new_category():
         return redirect(url_for('show_catalog'))
 
     else:
-        return render_template('new_category.html')
+        return render_template('new_category.html', categories=categories)
 
 
 @app.route('/catalog/<int:category_id>/edit', methods=['GET', 'POST'])
@@ -69,6 +70,7 @@ def edit_category(category_id):
     Get: Show to the authenticated user a form to change the category data
     Post: Allow authenticated user to change category data
     """
+    categories = session.query(Category).order_by(Category.name).all()
     editedCategory = session.query(Category).filter_by(id=category_id).one()
     if request.method == 'POST':
         if request.form['inputCategoryName']:
@@ -79,7 +81,7 @@ def edit_category(category_id):
         session.commit()
         return redirect(url_for('show_catalog'))
     else:
-        return render_template('edit_category.html', category=editedCategory)
+        return render_template('edit_category.html', category=editedCategory, categories=categories)
 
 
 @app.route('/catalog/<int:category_id>/delete', methods=['GET', 'POST'])
@@ -88,13 +90,14 @@ def delete_category(category_id):
     Get: Show to the authenticated user a form to confirm category deletion
     Post: Allow authenticated user to delete category
     """
+    categories = session.query(Category).order_by(Category.name).all()
     deletedCategory = session.query(Category).filter_by(id=category_id).one()
     if request.method == 'POST':
         session.delete(deletedCategory)
         session.commit()
         return redirect(url_for('show_catalog'))
     else:
-        return render_template('delete_category.html', category=deletedCategory)
+        return render_template('delete_category.html', category=deletedCategory, categories=categories)
 
 @app.route('/catalog/<int:category_id>/')
 @app.route('/catalog/<int:category_id>/items')
@@ -103,17 +106,19 @@ def category_items(category_id):
     Render a catalog page with items present in a specific category
     """
     category = session.query(Category).filter_by(id=category_id).one()
+    categories = session.query(Category).order_by(Category.name).all()
     items = session.query(Item).filter_by(category_id=category_id).order_by(Item.name).all()
-    return render_template('category.html', category=category, items=items)
+    return render_template('category.html', category=category, items=items, categories=categories)
 
 @app.route('/catalog/<int:category_id>/<int:item_id>', methods=['GET', 'POST'])
 def show_item(category_id, item_id):
     """
     Render the item page
     """
-    item = session.query(Item).filter_by(id=item_id).one()
+    categories = session.query(Category).order_by(Category.name).all()
     category = session.query(Category).filter_by(id=category_id).one()
-    return render_template('item.html', category=category, item=item)
+    item = session.query(Item).filter_by(id=item_id).one()
+    return render_template('item.html', category=category, item=item, categories=categories)
 
 @app.route('/catalog/<int:category_id>/new', methods=['GET', 'POST'])
 def new_item(category_id):
@@ -164,6 +169,13 @@ def edit_item(category_id, item_id):
             editedItem.price = request.form['inputItemPrice']
         if request.form['inputItemCategory']:
             editedItem.category_id = request.form['inputItemCategory']
+        file = request.files['inputItemImage']
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file_extension = os.path.splitext(filename)[1]
+            image_path = os.path.join(app.config['UPLOAD_FOLDER'], str(editedItem.id)+file_extension)
+            file.save(image_path)
+            editedItem.image="/"+image_path
         session.add(editedItem)
         session.commit()
         return redirect(url_for('show_catalog'))

@@ -7,7 +7,7 @@
 
 <div class="container">
     <div class="row">
-    <h3 class="pull-right">Delete {{category.name}}</h3>
+    <h3>Delete {{category.name}}</h3>
     </div>
     <form action="{{url_for('delete_category', category_id=category.id)}}" method="POST">
         <div class="form-group">

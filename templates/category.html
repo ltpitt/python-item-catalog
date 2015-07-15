@@ -8,11 +8,8 @@
 
         <div class="row">
             <div class="col-md-3">
-                <p class="lead">Pipi's shop</p>
                 <div class="list-group">
-                    <a href="#">{{ category.name}}</a>
-                    <a class="pull-right" href="{{url_for('new_item', category_id=category.id)}}">New Item</a>
-                    <br>
+                    <h3>{{ category.name}}</h3>
                     <a href="{{url_for('edit_category', category_id=category.id)}}">Edit</a>
                     <a href="{{url_for('delete_category', category_id=category.id)}}">Delete</a>
                     <br>
@@ -25,7 +22,7 @@
                     {% for item in items %}
                     <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
-                            <img src="{{item.image}}" alt="">
+                            <a href="{{url_for('show_item', category_id=item.category_id, item_id=item.id)}}"><img src="{{item.image}}" alt=""></a>
                             <div class="caption">
                                 <h4 class="pull-right">€ {{item.price}}</h4>
                                 <h4><a href="{{url_for('show_item', category_id=item.category_id, item_id=item.id)}}">{{item.name}}</a>
@@ -35,6 +32,7 @@
                                 <a href="{{url_for('edit_item', category_id=item.category_id, item_id=item.id)}}">Edit</a>
                                 <a href="{{url_for('delete_item', category_id=item.category_id, item_id=item.id)}}">Delete</a>
                             </div>
+                            <!-- RATINGS: TO BE IMPLEMENTED
                             <div class="ratings">
                                 <p class="pull-right">15 reviews</p>
                                 <p>
@@ -45,6 +43,7 @@
                                     <span class="glyphicon glyphicon-star"></span>
                                 </p>
                             </div>
+                            -->
                         </div>
                     </div>
 

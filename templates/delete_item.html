@@ -4,32 +4,47 @@
 
 {% block content %}
 <div class="container">
-    <div class="row">
-    <h3 class="pull-right">Delete {{item.name}}, {{category.name}}</h3>
-    </div>
+    <h3>Delete {{item.name}}, {{category.name}}</h3>
+    <br/>
+
     <form action="{{url_for('delete_item', category_id=category.id, item_id=item.id)}}" method="POST">
-        <img src="{{item.image}}" alt="">
-        <div class="form-group">
-            <label>Name</label>
-            <p>{{item.name}}</p>
+        <div>
+            <img src="{{item.image}}" alt="" style="width:100%; height:100%;">
         </div>
-        <div class="form-group">
-            <label>Description</label>
-            <p>{{item.description}}</p>
+
+        <br/>
+
+        <div class="row">
+            <div class="col-md-6 col-xs-6">
+                <label>Name</label>
+
+                <p>{{item.name}}</p>
+
+                <label>Description</label>
+
+                <p>{{item.description}}</p>
+            </div>
+            <div class="col-md-6 col-xs-6">
+                <label>Price</label>
+
+                <p>{{item.price}}</p>
+
+                <label>Category</label>
+
+                <p>{{item.category_id}}</p>
+            </div>
         </div>
-        <div class="form-group">
-            <label>Price</label>
-            <p>{{item.price}}</p>
-        </div>
-        <div class="form-group">
-            <label>Category</label>
-            <p>{{item.category_id}}</p>
-        </div>
+
+        <br/>
+
         <ul class="pull-right">
             <button onClick="window.history.back();" class="btn btn-danger">Cancel</button>
             <button type="submit" class="btn btn-success">Delete</button>
         </ul>
     </form>
+
 </div>
+
+
 {% endblock %}
 

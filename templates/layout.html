@@ -28,14 +28,49 @@
 <body>
 
 {% block navbar %}
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
-            <a class="navbar-brand" href="{{url_for('show_catalog')}}">Item Catalog</a>
-            <form action="#" class="pull-right">
-                <button class="btn btn-default navbar-btn btn-success">Login</button>
-            </form>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{url_for('show_catalog')}}">Item catalog</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Categories <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        {% for category in categories %}
+                            <li><a href="{{url_for('category_items', category_id=category.id)}}">{{category.name}}</a></li>
+                        {% endfor %}
+                        <!--
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{{url_for('new_category')}}">New Category</a></li>
+                        -->
+                    </ul>
+                </li>
+                <li><a href="{{url_for('new_category')}}">New Category</a></li>
+                {% if category %}
+                <li><a href="{{url_for('new_item', category_id=category.id)}}">New Item</a></li>
+                {% endif %}
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><form action="#">
+                    <button class="btn btn-default navbar-btn btn-success">Login</button>
+                </form></li>
+
+            </ul>
+        </div>
     </div>
 </nav>
+
+
 {% endblock %}
 
 

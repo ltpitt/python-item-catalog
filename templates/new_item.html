@@ -6,7 +6,7 @@
 <!-- Page Content -->
 <div class="container">
     <div class="row">
-        <h3 class="pull-right">New Item in {{category.name}}</h3>
+        <h3>New Item in {{category.name}}</h3>
     </div>
     <form action="{{url_for('new_item', category_id = category.id)}}" method="POST" enctype="multipart/form-data">
         <div class="form-group">
@@ -23,17 +23,30 @@
             <input class="form-control" name="inputItemPrice" id="inputItemPrice" placeholder="Name" required>
         </div>
 
+
+
+
+
+
+
+
+
+
         <div class="form-group">
-            <label for="inputItemImage">Image</label>
-            <br>
+
+                    <label for="inputItemImage">Image</label>
+                    <br/>
+
+                    <div class="cropper" style="text-align: center;">
+                        <img width="200px" id="item-image" src="" alt="Picture" hidden>
+                    </div>
+
+                    <br />
             <span class="btn btn-default btn-file">
-                Browse
+                Browse image
                 <input id="inputItemImage" name="inputItemImage" type="file">
             </span>
 
-            <div class="cropper" style="max-width: 400px; max-height: 300px; margin: 0 auto;">
-                <img id="item-image" src="" alt="Picture" hidden>
-            </div>
 
 
         </div>
@@ -46,10 +59,10 @@
 
 
     </form>
-    <button onClick="cropperCrop();" class="btn btn-warning">Crop</button>
+
+<!--    <button onClick="cropperCrop();" class="btn btn-warning">Crop</button> -->
 
 
 </div>
 <!-- /.container -->
 {% endblock %}
-

@@ -1,3 +1,24 @@
+if (document.getElementById('inputItemImage')) {
+    var imageLoader = document.getElementById('inputItemImage');
+    imageLoader.addEventListener('change', handleImage, false);
+}
+
+function handleImage(e){
+    var reader = new FileReader();
+    reader.onload = function(event){
+        var img = new Image();
+        $('.cropper > img').cropper("destroy");
+        img.onload = function(){
+            startCropper();
+        }
+        $('#item-image').show();
+        $('#item-image').attr('src', event.target.result);
+        img.src = event.target.result;
+    }
+    reader.readAsDataURL(e.target.files[0]);
+}
+
+
 /*
 $('#confirm-delete').on('show.bs.modal', function(e) {
     $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
