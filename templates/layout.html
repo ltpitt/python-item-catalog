@@ -22,6 +22,7 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="//apis.google.com/js/platform.js?onload=start"></script>
     {% endblock %}
 </head>
 
@@ -47,7 +48,7 @@
                        aria-expanded="false">Categories <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         {% for category in categories %}
-                            <li><a href="{{url_for('category_items', category_id=category.id)}}">{{category.name}}</a></li>
+                        <li><a href="{{url_for('category_items', category_id=category.id)}}">{{category.name}}</a></li>
                         {% endfor %}
                         <!--
                         <li role="separator" class="divider"></li>
@@ -55,16 +56,25 @@
                         -->
                     </ul>
                 </li>
+                {% if user %}
                 <li><a href="{{url_for('new_category')}}">New Category</a></li>
                 {% if category %}
                 <li><a href="{{url_for('new_item', category_id=category.id)}}">New Item</a></li>
                 {% endif %}
+                {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><form action="#">
+                {% if user %}
+                <span style="color: white; padding-right: 1em;">Hi, {{user.name}}</span>
+                <a href="{{url_for('disconnect')}}" id="logout-button">
+                    <button class="btn btn-default navbar-btn btn-danger">Logout</button>
+                </a>
+                {% endif %}
+                {% if not user %}
+                <a href="{{url_for('show_login')}}" id="login-button">
                     <button class="btn btn-default navbar-btn btn-success">Login</button>
-                </form></li>
-
+                </a>
+                {% endif %}
             </ul>
         </div>
     </div>
@@ -73,6 +83,42 @@
 
 {% endblock %}
 
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+{% if category == 'success' %}
+<div class='flash'>
+    <div class="alert alert-success" role="success">
+        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        <span class="sr-only">Success:</span>
+        {{ message }}
+    </div>
+</div>
+{% endif %}
+{% if category == 'warning' %}
+<div class='flash'>
+    <div class="alert alert-warning" role="warning">
+        <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+        <span class="sr-only">Warning:</span>
+        {{ message }}
+    </div>
+</div>
+{% endif %}
+{% if category == 'error' %}
+<div class='flash'>
+    <div class="alert alert-danger" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{ message }}
+    </div>
+</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+</div>
 
 {% block content %}
 {% endblock %}

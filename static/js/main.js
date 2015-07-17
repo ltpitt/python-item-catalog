@@ -18,6 +18,12 @@ function handleImage(e){
     reader.readAsDataURL(e.target.files[0]);
 }
 
+if (document.getElementById('login-page')) {
+    $('#login-button').hide();
+} else {
+    $('#login-button').show();
+}
+
 
 /*
 $('#confirm-delete').on('show.bs.modal', function(e) {

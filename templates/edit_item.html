@@ -5,9 +5,8 @@
 {% block content %}
 <!-- Page Content -->
 <div class="container">
-    <div class="row">
-        <h3>Edit {{item.name}}, {{category.name}}</h3>
-    </div>
+    <h3>Edit {{item.name}}, {{category.name}}</h3>
+
     <form action="{{url_for('edit_item', category_id = category.id, item_id = item.id)}}" method="POST"
           enctype="multipart/form-data">
         <div class="form-group">
@@ -41,6 +40,7 @@
             <div class="form-group">
                 <div class="col-md-6">
                     <label>Current image</label>
+
                     <div style="text-align: center;">
                         <img width="200px" src="{{item.image}}" alt="">
                     </div>
@@ -53,7 +53,7 @@
                         <img width="200px" id="item-image" src="" alt="Picture" hidden>
                     </div>
 
-                    <br />
+                    <br/>
             <span class="btn btn-default btn-file">
                 Browse image
                 <input id="inputItemImage" name="inputItemImage" type="file">

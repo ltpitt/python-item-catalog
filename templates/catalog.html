@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="container">
-    <h3>All categories</h3>
+    <h3>Latest items</h3>
 
     <div class="row">
         {% for item in items %}
@@ -14,15 +14,26 @@
                         src="{{item.image}}" alt=""></a>
 
                 <div class="caption">
+
                     <h4 class="pull-right">€ {{item.price}}</h4>
                     <h4>
                         <a href="{{url_for('show_item', category_id=item.category_id, item_id=item.id)}}">{{item.name}}</a>
                     </h4>
 
                     <p>{{item.description}}</p>
-                    <br>
+                    {% for category in categories %}
+                    {% if category.id == item.category_id %}
+                    <p>{{category.name}}</p>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% if user %}
+                    {% if user.id == item.user_id %}
                     <a href="{{url_for('edit_item', category_id=item.category_id, item_id=item.id)}}">Edit</a>
                     <a href="{{url_for('delete_item', category_id=item.category_id, item_id=item.id)}}">Delete</a>
+                    {% endif %}
+                    {% endif %}
+
                 </div>
 
                 <!-- RATINGS: TO BE IMPLEMENTED

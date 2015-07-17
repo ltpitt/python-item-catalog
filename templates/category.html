@@ -3,59 +3,70 @@
 {% block title %}Item Catalog{% endblock %}
 
 {% block content %}
-    <!-- Page Content -->
-    <div class="container">
+<!-- Page Content -->
+<div class="container">
 
-        <div class="row">
-            <div class="col-md-3">
-                <div class="list-group">
-                    <h3>{{ category.name}}</h3>
-                    <a href="{{url_for('edit_category', category_id=category.id)}}">Edit</a>
-                    <a href="{{url_for('delete_category', category_id=category.id)}}">Delete</a>
-                    <br>
-                    <br>
-                </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="list-group">
+                <h3>{{ category.name}} ({{ total_items }} items)</h3>
+                {% if user %}
+                {% if user.id == category.user_id %}
+                <a href="{{url_for('edit_category', category_id=category.id)}}">Edit</a>
+                <a href="{{url_for('delete_category', category_id=category.id)}}">Delete</a>
+                {% endif %}
+                {% endif %}
+                <br>
+                <br>
             </div>
+        </div>
 
-            <div class="col-md-9">
-                <div class="row">
-                    {% for item in items %}
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <a href="{{url_for('show_item', category_id=item.category_id, item_id=item.id)}}"><img src="{{item.image}}" alt=""></a>
-                            <div class="caption">
-                                <h4 class="pull-right">€ {{item.price}}</h4>
-                                <h4><a href="{{url_for('show_item', category_id=item.category_id, item_id=item.id)}}">{{item.name}}</a>
-                                </h4>
-                                <p>{{item.description}}</p>
-                                  <br>
-                                <a href="{{url_for('edit_item', category_id=item.category_id, item_id=item.id)}}">Edit</a>
-                                <a href="{{url_for('delete_item', category_id=item.category_id, item_id=item.id)}}">Delete</a>
-                            </div>
-                            <!-- RATINGS: TO BE IMPLEMENTED
-                            <div class="ratings">
-                                <p class="pull-right">15 reviews</p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                </p>
-                            </div>
-                            -->
+        <div class="col-md-9">
+            <div class="row">
+                {% for item in items %}
+                <div class="col-sm-4 col-lg-4 col-md-4">
+                    <div class="thumbnail">
+                        <a href="{{url_for('show_item', category_id=item.category_id, item_id=item.id)}}"><img
+                                src="{{item.image}}" alt=""></a>
+
+                        <div class="caption">
+                            <h4 class="pull-right">€ {{item.price}}</h4>
+                            <h4><a href="{{url_for('show_item', category_id=item.category_id, item_id=item.id)}}">{{item.name}}</a>
+                            </h4>
+
+                            <p>{{item.description}}</p>
+                            <br>
+                            {% if user %}
+                            {% if user.id == item.user_id %}
+                            <a href="{{url_for('edit_item', category_id=item.category_id, item_id=item.id)}}">Edit</a>
+                            <a href="{{url_for('delete_item', category_id=item.category_id, item_id=item.id)}}">Delete</a>
+                            {% endif %}
+                            {% endif %}
                         </div>
+                        <!-- RATINGS: TO BE IMPLEMENTED
+                        <div class="ratings">
+                            <p class="pull-right">15 reviews</p>
+                            <p>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                            </p>
+                        </div>
+                        -->
                     </div>
-
-                    {% endfor %}
-
                 </div>
+
+                {% endfor %}
 
             </div>
 
         </div>
 
     </div>
-    <!-- /.container -->
+
+</div>
+<!-- /.container -->
 {% endblock %}
 
