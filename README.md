@@ -1,1 +1,31 @@
-# item-catalog
+# README #
+
+Item Catalog
+
+### What is this repository for? ###
+
+Item Catalog is a Python script that allows users to use a Web Item Catalog, using Facebook and Google OAuth providers for authentication.
+All items in the catalog are organized in categories and there are various permission levels.
+A public user can view all categories and items, a registered user also has rights to create items or categories and edit or delete items or categories he created (but not others')
+
+
+### How do I get set up? ###
+
+* Python (<3) is required. If you have Linux or Mac you should be good to go and you should skip to the next step, if you're on Windows get it from: http://ninite.com
+* Clone the repository or simply download it as a zip file and unzip it on your pc
+* Install all required components using pip (https://pip.pypa.io/en/latest/installing.html) with the following commands:
+* pip install werkzeug==0.8.3
+* pip install flask==0.9
+* pip install Flask-Login==0.1.3
+* pip install Flask-Login==0.1.3
+* pip install jaxml
+* Launch the script with: python item-catalog.py
+* Open a web browser and visit: http://localhost:8000
+
+### Contribution guidelines ###
+
+* If you have any idea or suggestion contact directly the Repo Owner
+
+### Who do I talk to? ###
+
+* ltpitt: Repo Owner
