@@ -11,75 +11,73 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-
 newCategory = Category(
-	name="Categoria 1",
-	description="Descrizione Categoria 1"
+    name="Category 1",
+    description="Description Category 1"
 )
 
 session.add(newCategory)
 session.commit()
 
 newCategory = Category(
-        name="Categoria 2",
-        description="Descrizione Categoria 2"
+    name="Category 2",
+    description="Description Category 2"
 )
 
 session.add(newCategory)
 session.commit()
 
-
 newItem = Item(
-            name="Oggetto 1",
-            description="Descrizione Oggetto 1",
-            price="10",
-			image="/static/images/test.jpg",
-			category_id = 1
-        )
+    name="Item 1",
+    description="Description Item 1",
+    price="10",
+    image="/static/images/test.jpg",
+    category_id=1
+)
 
 session.add(newItem)
 session.commit()
 
 newItem = Item(
-            name="Oggetto 2",
-            description="Descrizione Oggetto 2",
-            price="20",
-			image="/static/images/test.jpg",
-            category_id = 2
-        )
+    name="Item 2",
+    description="Description Item 2",
+    price="20",
+    image="/static/images/test.jpg",
+    category_id=2
+)
 
 session.add(newItem)
 session.commit()
 
 newItem = Item(
-            name="Oggetto 3",
-            description="Descrizione Oggetto 3",
-            price="30",
-			image="/static/images/test.jpg",
-            category_id = 1
-        )
+    name="Item 3",
+    description="Description Item 3",
+    price="30",
+    image="/static/images/test.jpg",
+    category_id=1
+)
 
 session.add(newItem)
 session.commit()
 
 newItem = Item(
-            name="Oggetto 4",
-            description="Descrizione Oggetto 4",
-            price="40",
-			image="/static/images/test.jpg",
-            category_id = 1
-        )
+    name="Item 4",
+    description="Description Item 4",
+    price="40",
+    image="/static/images/test.jpg",
+    category_id=1
+)
 
 session.add(newItem)
 session.commit()
 
 newItem = Item(
-            name="Oggetto 5",
-            description="Descrizione Oggetto 5",
-            price="50",
-			image="/static/images/test.jpg",
-			category_id = 2
-        )
+    name="Item 5",
+    description="Description Item 5",
+    price="50",
+    image="/static/images/test.jpg",
+    category_id=2
+)
 
 session.add(newItem)
 session.commit()

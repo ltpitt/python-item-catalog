@@ -1,4 +1,3 @@
-
 from sqlalchemy import Column, ForeignKey, Integer, String
 
 from sqlalchemy.dialects.sqlite import BLOB
@@ -14,16 +13,16 @@ Base = declarative_base()
 
 class User(Base):
     __tablename__ = 'user'
-    id = Column (
+    id = Column(
         Integer, primary_key=True
     )
-    name = Column (
+    name = Column(
         String(250), nullable=False
     )
-    email = Column (
+    email = Column(
         String(250), nullable=False
     )
-    picture = Column (
+    picture = Column(
         String(250)
     )
 
@@ -35,7 +34,6 @@ class User(Base):
             'email': self.email,
             'picture': self.picture,
         }
-
 
 
 class Category(Base):
@@ -52,10 +50,6 @@ class Category(Base):
         String(250), nullable=False
     )
 
-    image = Column(
-        String(250)
-    )
-
     user_id = Column(
         Integer, ForeignKey('user.id')
     )
@@ -67,13 +61,13 @@ class Category(Base):
 
     @property
     def serialize(self):
-
         return {
             'id': self.id,
             'name': self.name,
             'description': self.description,
-            'user': self.user_id,
+            'user_id': self.user_id,
         }
+
 
 class Item(Base):
     __tablename__ = 'item'
@@ -93,7 +87,6 @@ class Item(Base):
         String(250), nullable=False
     )
 
-
     category_id = Column(
         Integer, ForeignKey('category.id', ondelete='CASCADE'), nullable=False
     )
@@ -106,15 +99,16 @@ class Item(Base):
 
     @property
     def serialize(self):
-
         return {
             'id': self.id,
             'name': self.name,
             'description': self.description,
+            'image': self.image,
             'price': self.price,
-            'category': self.category_id,
-            'user': self.user_id,
+            'category_id': self.category_id,
+            'user_id': self.user_id,
         }
+
 
 engine = create_engine(
     'sqlite:///item-catalog.db'

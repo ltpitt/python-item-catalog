@@ -62,6 +62,7 @@ function signInCallback(authResult) {
 
 
 
+
                 </script>
                 <!--END GOOGLE PLUS SIGN IN -->
             </div>
@@ -72,7 +73,7 @@ function signInCallback(authResult) {
                 <script>
   window.fbAsyncInit = function() {
   FB.init({
-    appId      : '846524132078825',
+    appId      : '462507200584042',
     cookie     : true,  // enable cookies to allow the server to access
                         // the session
     xfbml      : true,  // parse social plugins on this page
@@ -109,7 +110,7 @@ function signInCallback(authResult) {
         if (result) {
           $('#result').html('Login Successful!</br>'+ result + '</br>Redirecting...')
          setTimeout(function() {
-          window.location.href = "/restaurant";
+          window.location.href = "/";
          }, 4000);
 
 
@@ -124,6 +125,7 @@ function signInCallback(authResult) {
 
     });
   }
+
 
 
 
