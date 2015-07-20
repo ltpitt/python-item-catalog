@@ -22,6 +22,20 @@ A public user can view all categories and items, a registered user also has righ
 * Launch the script with: python item-catalog.py
 * Open a web browser and visit: http://localhost:8000
 
+### API Endpoints ###
+
+It is possible to retrieve data from the application in RSS and JSON format using the following urls:
+
+##JSON##
+* All catalog: http://localhost:8000/catalog/JSON
+* Specific category: http://localhost:8000/catalog/INSERT_CATEGORY_ID/JSON
+* Specific item: http://localhost:8000/catalog/INSERT_CATEGORY_ID/INSERT_ITEM_ID/JSON
+
+##RSS##
+* All catalog: http://localhost:8000/catalog/RSS
+* Specific category: http://localhost:8000/catalog/INSERT_CATEGORY_ID/RSS
+* Specific item: http://localhost:8000/catalog/INSERT_CATEGORY_ID/INSERT_ITEM_ID/RSS
+
 ### Contribution guidelines ###
 
 * If you have any idea or suggestion contact directly the Repo Owner
