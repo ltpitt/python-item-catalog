@@ -4,7 +4,7 @@ Item Catalog
 
 ### What is this repository for? ###
 
-Item Catalog is a Python script that allows users to use a Web Item Catalog, using Facebook and Google OAuth providers for authentication.
+Item Catalog is a Python script that allows users to use a Web Item Catalog, using Facebook and Google OAuth providers for authentication and sqlite for data persistance.
 All items in the catalog are organized in categories and there are various permission levels.
 A public user can view all categories and items, a registered user also has rights to create items or categories and edit or delete items or categories he created (but not others')
 
