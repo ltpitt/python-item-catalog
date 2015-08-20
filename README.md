@@ -14,11 +14,7 @@ A public user can view all categories and items, a registered user also has righ
 * Python (<3) is required. If you have Linux or Mac you should be good to go and you should skip to the next step, if you're on Windows get it from: http://ninite.com
 * Clone the repository or simply download it as a zip file and unzip it on your pc
 * Install all required components using pip (https://pip.pypa.io/en/latest/installing.html) with the following commands:
-* pip install werkzeug==0.8.3
-* pip install flask==0.9
-* pip install Flask-Login==0.1.3
-* pip install Flask-Login==0.1.3
-* pip install jaxml
+* pip install -r requirements.txt
 * Launch the script with: python item-catalog.py
 * Open a web browser and visit: http://localhost:8000
 
