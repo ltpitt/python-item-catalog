@@ -5,7 +5,8 @@ from database_setup import Base, User, Category, Item
 
 app = Flask(__name__)
 
-engine = create_engine('sqlite:///item-catalog.db')
+engine = create_engine('postgresql://catalog:VZgDYgVZXrwVSwaNWTC0@localhost:5432/catalog')
+#engine = create_engine('sqlite:///item-catalog.db')
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
