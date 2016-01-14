@@ -15,7 +15,7 @@ A public user can view all categories and items, a registered user also has righ
 * Clone the repository or simply download it as a zip file and unzip it on your pc
 * Install all required components using pip (https://pip.pypa.io/en/latest/installing.html) with the following commands:
 * pip install -r requirements.txt
-* Launch the script with: python item-catalog.py
+* Launch the script with: python itemcatalog.py
 * Open a web browser and visit: http://localhost:8000
 
 ### API Endpoints ###
