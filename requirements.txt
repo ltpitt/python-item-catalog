@@ -5,4 +5,6 @@ jaxml
 sqlalchemy
 oauth2client
 requests
-#psycopg2 install if using PostgreSQL
+#Install if using PostgreSQL
+#Flask-SQLAlchemy
+#psycopg2 
