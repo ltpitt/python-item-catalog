@@ -5,7 +5,7 @@ from flask import make_response
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import desc
-from database_setup import Base, User, Category, Item
+from db_setup import Base, User, Category, Item
 from werkzeug import secure_filename
 import random
 import string
