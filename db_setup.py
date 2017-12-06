@@ -110,9 +110,13 @@ class Item(Base):
         }
 
 
-# SQLite engine
-# engine = create_engine('sqlite:///item-catalog.db')
 # PostgreSQL engine
-engine = create_engine('postgresql://catalog:VZgDYgVZXrwVSwaNWTC0@localhost:5432/catalog')
+#engine = create_engine('postgresql://catalog:VZgDYgVZXrwVSwaNWTC0@localhost:5432/catalog')
+
+# MySql engine
+#engine = create_engine('mysql://scott:tiger@localhost/foo')
+
+# SQLite engine
+engine = create_engine('sqlite:///item-catalog.db')
 
 Base.metadata.create_all(engine)
