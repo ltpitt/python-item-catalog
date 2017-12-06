@@ -1,12 +1,19 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from database_setup import Base, User, Category, Item
+from db_setup import Base, User, Category, Item
 
 app = Flask(__name__)
 
-engine = create_engine('postgresql://catalog:VZgDYgVZXrwVSwaNWTC0@localhost:5432/catalog')
-#engine = create_engine('sqlite:///item-catalog.db')
+# PostgreSQL engine
+#engine = create_engine('postgresql://catalog:VZgDYgVZXrwVSwaNWTC0@localhost:5432/catalog')
+
+# MySql engine
+#engine = create_engine('mysql://scott:tiger@localhost/foo')
+
+# SQLite engine
+engine = create_engine('sqlite:///item-catalog.db')
+
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
