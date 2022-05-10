@@ -6,7 +6,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import desc
 from db_setup import Base, User, Category, Item
-from werkzeug import secure_filename
+from werkzeug.utils import secure_filename
 import random
 import string
 import os
@@ -15,7 +15,7 @@ from oauth2client.client import FlowExchangeError
 import httplib2
 import json
 import requests
-import jaxml
+from xml.dom import minidom
 
 UPLOAD_FOLDER = 'static/images/'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
@@ -27,7 +27,7 @@ app = Flask(__name__)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-engine = create_engine('sqlite:///item-catalog.db')
+engine = create_engine('sqlite:///item-catalog.db', connect_args={'check_same_thread': False})
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
@@ -46,7 +46,7 @@ def catalog_RSS():
     Return an RSS feed containing all items in catalog
     """
     items = session.query(Item).all()
-    doc = jaxml.XML_document()
+    doc = minidom.Document()
     doc.catalogitems()
     for item in items:
         doc._push()
@@ -138,7 +138,7 @@ def show_login():
     Allow user login and create anti-forgery state token
     """
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
-                    for x in xrange(32))
+                    for x in range(32))
     login_session['state'] = state
     return render_template('login.html', STATE=state)
 
@@ -153,7 +153,7 @@ def fbconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
     access_token = request.data
-    print "access token received %s " % access_token
+    print("access token received %s " % access_token)
 
     app_id = json.loads(open('fb_client_secrets.json', 'r').read())[
         'web']['app_id']
@@ -273,7 +273,7 @@ def gconnect():
     if result['issued_to'] != CLIENT_ID:
         response = make_response(
             json.dumps("Token's client ID does not match app's."), 401)
-        print "Token's client ID does not match app's."
+        print("Token's client ID does not match app's.")
         response.headers['Content-Type'] = 'application/json'
         return response
 
@@ -318,7 +318,7 @@ def gconnect():
             150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
     flash(u'You are now logged in as %s\
           ' % login_session['username'], 'success')
-    print "done!"
+    print("done!")
     return output
 
 
@@ -330,7 +330,7 @@ def gdisconnect():
     # Only disconnect a connected user.
     credentials = login_session.get('credentials')
     for i in login_session:
-        print i
+        print(i)
     if credentials is None:
         response = make_response(
             json.dumps('Current user not connected.'), 401)
@@ -338,7 +338,7 @@ def gdisconnect():
         return response
     access_token = credentials.access_token
     url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % access_token
-    print url
+    print(url)
     h = httplib2.Http()
     result = h.request(url, 'GET')[0]
     if result['status'] != '200':
@@ -689,4 +689,4 @@ def delete_item(category_id, item_id):
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
     app.debug = True
-    app.run(host='0.0.0.0', port=8000)
+    app.run(host='0.0.0.0', port=5000)
